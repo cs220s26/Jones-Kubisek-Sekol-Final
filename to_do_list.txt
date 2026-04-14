@@ -1,0 +1,18 @@
+Confirm .gitignore contains all it should 
+Confirm pom.xml works as intended
+Confirm the bot works 
+Run the original bot on EC2
+Confir we can load the Discord Token from Secrets Manager on EC2
+Be able to reset Redis on our laptops
+Be able to ingest “new bot” data into Redis on our laptops
+Be able to ingest “mid-life bot” data into Redis on our laptops
+Confirm the previous 3 steps are in scripts
+Your scripts work on both our laptops and an EC2 instance
+The Maven build uses checkstyle (have not gone over this yet)
+We have a checkstyle configuration file with a handful of checks enabled (again, have not gone over it in class yet)
+The code is checkstyle-compliant (same as the last two)
+Add a script to perform all deploy steps on EC2 (used AFTER the repo is cloned)
+(Optional): Add a script you can used with the “userdata” feature of an EC2 launch to deploy automatically
+Add CI on your repo that will run tests and static analysis on every push
+Add CD on your repo that will redeploy to EC2 when manually triggered
+Confirm the bot can launch with SystemD
