@@ -1,6 +1,6 @@
-Confirm .gitignore contains all it should 
-Confirm pom.xml works as intended
-Confirm the bot works 
+Confirm .gitignore contains all it should (MOSTLY DONE) 
+Confirm pom.xml works as intended (DONE)
+Confirm the bot works
 Run the original bot on EC2
 Confir we can load the Discord Token from Secrets Manager on EC2
 Be able to reset Redis on our laptops
