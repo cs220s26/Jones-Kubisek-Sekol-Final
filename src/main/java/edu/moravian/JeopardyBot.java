@@ -7,13 +7,16 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.jetbrains.annotations.NotNull;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 
 public class JeopardyBot
 {
     public static void main(String[] args)
     {
-        Dotenv dotenv = Dotenv.load();
-        String token = dotenv.get("DISCORD_TOKEN");
+        String token = getSecret();
 
         JDA api = JDABuilder.createDefault(token).enableIntents(GatewayIntent.MESSAGE_CONTENT).build();
 
@@ -39,5 +42,28 @@ public class JeopardyBot
                     event.getChannel().sendMessage(response).queue();
             }
         });
+    }
+
+    private static String getSecret() {
+        String secretName = "220_Discord_Token";
+        Region region = Region.of("us-east-1");
+
+        SecretsManagerClient client = SecretsManagerClient.builder()
+                .region(region)
+                .build();
+
+        GetSecretValueRequest request = GetSecretValueRequest.builder()
+                .secretId(secretName)
+                .build();
+
+        GetSecretValueResponse response;
+
+        try {
+            response = client.getSecretValue(request);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to retrieve secret", e);
+        }
+
+        return response.secretString();
     }
 }
