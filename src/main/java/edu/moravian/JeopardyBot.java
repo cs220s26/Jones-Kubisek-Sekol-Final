@@ -16,7 +16,15 @@ public class JeopardyBot
 {
     public static void main(String[] args)
     {
-        String token = getSecret();
+
+        String token;
+
+        String secretName = "220_Discord_Token";
+        String secretKey = "DISCORD_TOKEN";
+
+        edu.moravian.secrets.Secrets secrets = new edu.moravian.secrets.Secrets();
+
+        token = secrets.getSecret(secretName, secretKey);
 
         JDA api = JDABuilder.createDefault(token).enableIntents(GatewayIntent.MESSAGE_CONTENT).build();
 
@@ -43,27 +51,5 @@ public class JeopardyBot
             }
         });
     }
-
-    private static String getSecret() {
-        String secretName = "220_Discord_Token";
-        Region region = Region.of("us-east-1");
-
-        SecretsManagerClient client = SecretsManagerClient.builder()
-                .region(region)
-                .build();
-
-        GetSecretValueRequest request = GetSecretValueRequest.builder()
-                .secretId(secretName)
-                .build();
-
-        GetSecretValueResponse response;
-
-        try {
-            response = client.getSecretValue(request);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to retrieve secret", e);
-        }
-
-        return response.secretString();
-    }
 }
+    
