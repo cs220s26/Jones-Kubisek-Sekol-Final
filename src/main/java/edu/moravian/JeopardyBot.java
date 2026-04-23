@@ -14,7 +14,7 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 
 public class JeopardyBot
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws edu.moravian.secrets.SecretsException
     {
 
         String token;
