@@ -10,6 +10,8 @@ mvn package
 systemctl start redis6
 systemctl enable redis6 
 
-cp jeopardy_bot.service /etc/systemd/system/jeopardy_bot.service
+cp /home/ec2-user/Jones-Kubisek-Sekol-Final/jeopardy_bot.service /etc/systemd/system/
 systemctl daemon-reload
 systemctl enable jeopardy_bot
+systemctl start jeopardy_bot
+
