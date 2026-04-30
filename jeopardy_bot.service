@@ -1,10 +1,10 @@
 [Unit]
 Description=Launches The Jeopardy Bot
 After=network-online.target
-Wabts=network-online.target
+Wants=network-online.target
 
 [Service]
-ExecStart=/usr/bin/java -jar /home/ubuntu/Jones-Kubisek-Sekol-Final/target/dbot-1.0.0-jar-with-dependencies.jar
+ExecStart=/usr/bin/java -jar /home/ec2-user/Jones-Kubisek-Sekol-Final/target/dbot-1.0.0-jar-with-dependencies.jar
 Restart=always
 
 [Install]
