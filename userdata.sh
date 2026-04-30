@@ -10,6 +10,6 @@ mvn package
 systemctl start redis6
 systemctl enable redis6 
 
-sudo cp jeopardy_bot.service /etc/systemd/system/tunetailorbot.service
-sudo systemctl daemon-reload
-sudo systemctl enable jeopardy_bot
+cp jeopardy_bot.service /etc/systemd/system/jeopardy_bot.service
+systemctl daemon-reload
+systemctl enable jeopardy_bot
