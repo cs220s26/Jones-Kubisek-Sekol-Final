@@ -12,7 +12,7 @@ import software.amazon.awssdk.services.secretsmanager.model.SecretsManagerExcept
 
 public class Secrets {
 
-    public String getSecret(String secretName, String secretKey) throws SecretsException
+    public String getSecret(String secretName, String secretKey) throws edu.moravian.secrets.SecretsException
     {
         Region region = Region.of("us-east-1");
 
@@ -34,11 +34,12 @@ public class Secrets {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(secretEntry);
             JsonNode jsonNode = root.get(secretKey);
-            if(jsonNode == null)
-                throw new SecretsException("Key not found in secret: " + secretKey);
+            if(jsonNode == null) {
+                throw new edu.moravian.secrets.SecretsException("Key not found in secret: " + secretKey);
+            }
             return jsonNode.asText();
         } catch (SecretsManagerException | JacksonException | SdkClientException e) {
-            throw new SecretsException("Error when retrieving secret: " + e.getMessage());
+            throw new edu.moravian.secrets.SecretsException("Error when retrieving secret: " + e.getMessage());
         }
     }
 }

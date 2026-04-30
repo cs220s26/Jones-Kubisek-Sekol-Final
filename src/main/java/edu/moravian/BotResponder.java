@@ -127,12 +127,14 @@ public class BotResponder {
             if (board == null) {
                 return BotResponses.shouldntHappen();
             }
-            if (message.length() < 2)
+            if (message.length() < 2) {
                 return BotResponses.invalidQuestion();
+            }
             char letter = Character.toLowerCase(message.charAt(0));
             int categoryIndex = letter - 'a';
-            if (categoryIndex < 0 || categoryIndex > 3)
+            if (categoryIndex < 0 || categoryIndex > 3) {
                 return BotResponses.invalidQuestion();
+            }
             String[] values = {"200", "400", "600", "800"};
             int questionIndex = -1;
             for (int i = 0; i < values.length; i++) {
@@ -141,11 +143,13 @@ public class BotResponder {
                     break;
                 }
             }
-            if (questionIndex == -1)
+            if (questionIndex == -1) {
                 return BotResponses.invalidQuestion();
+            }
             Category cat = board.getCategory(categoryIndex);
-            if (cat.isAnswered(questionIndex))
+            if (cat.isAnswered(questionIndex)) {
                 return BotResponses.alreadyAnswered();
+            }
             currentCategoryIndex = categoryIndex;
             currentQuestionIndex = questionIndex;
             System.out.println(questionIndex);

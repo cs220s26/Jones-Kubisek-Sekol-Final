@@ -2,7 +2,10 @@ package edu.moravian;
 
 import redis.clients.jedis.Jedis;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class RedisStorage {
 
@@ -22,16 +25,22 @@ public class RedisStorage {
 
     public void savePlayers(List<Player> players) {
         Set<String> keys = redis.keys("jeopardy:players:*");
-        if (!keys.isEmpty()) redis.del(keys.toArray(new String[0]));
+        if (!keys.isEmpty()) {
+            redis.del(keys.toArray(new String[0]));
+        }
         for (Player p : players) {
             redis.hset("jeopardy:players:" + p.getName(), Map.of("score", String.valueOf(p.getScore()), "answered", String.valueOf(p.hasAnswered())));
         }
     }
 
     public void saveBoard(Board board) {
-        if (board == null) return;
+        if (board == null) {
+            return;
+        }
         Set<String> keys = redis.keys("jeopardy:board:*");
-        if (!keys.isEmpty()) redis.del(keys.toArray(new String[0]));
+        if (!keys.isEmpty()) {
+            redis.del(keys.toArray(new String[0]));
+        }
         for (int c = 0; c < board.chosenCategories.size(); c++) {
             Category cat = board.getCategory(c);
             redis.hset("jeopardy:board:category:" + c, "name", cat.getCategoryName());
@@ -48,7 +57,9 @@ public class RedisStorage {
 
     public Active loadActive() {
         Map<String, String> map = redis.hgetAll("jeopardy:active");
-        if (map.isEmpty()) return null;
+        if (map.isEmpty()) {
+            return null;
+        }
         return new Active(Integer.parseInt(map.get("category")), Integer.parseInt(map.get("question")), map.get("answer"), Integer.parseInt(map.get("value")), Boolean.parseBoolean(map.get("active")));
     }
 
@@ -68,17 +79,23 @@ public class RedisStorage {
 
     public Board loadBoard() {
         Set<String> catKeys = redis.keys("jeopardy:board:category:*");
-        if (catKeys.isEmpty()) return null;
+        if (catKeys.isEmpty()) {
+            return null;
+        }
         List<Category> categories = new ArrayList<>();
         for (int c = 0; ; c++) {
             String catKey = "jeopardy:board:category:" + c;
-            if (!redis.exists(catKey)) break;
+            if (!redis.exists(catKey)) {
+                break;
+            }
             Map<String, String> catData = redis.hgetAll(catKey);
             String catName = catData.getOrDefault("name", "Category " + c);
             Category cat = new Category(catName);
             for (int q = 0; q < 4; q++) {
                 String qKey = catKey + ":q:" + q;
-                if (!redis.exists(qKey)) continue;
+                if (!redis.exists(qKey)) {
+                    continue;
+                }
                 Map<String, String> qData = redis.hgetAll(qKey);
                 String questionText = qData.getOrDefault("question", "No question available");
                 String answerText   = qData.getOrDefault("answer", "");
@@ -90,7 +107,9 @@ public class RedisStorage {
                 }
                 cat.addQuestionSet(questionText, value, answerText);
                 boolean answered = Boolean.parseBoolean(qData.getOrDefault("answered", "false"));
-                if (answered) cat.markAnswered(q);
+                if (answered) {
+                    cat.markAnswered(q);
+                }
             }
             categories.add(cat);
         }
@@ -99,7 +118,9 @@ public class RedisStorage {
 
     public void clearAll() {
         Set<String> all = redis.keys("jeopardy:*");
-        if (!all.isEmpty()) redis.del(all.toArray(new String[0]));
+        if (!all.isEmpty()) {
+            redis.del(all.toArray(new String[0]));
+        }
     }
 
     public static class Active {
@@ -109,7 +130,11 @@ public class RedisStorage {
         public int value;
         public boolean active;
         public Active(int c, int q, String a, int v, boolean act) {
-            category = c; question = q; answer = a; value = v; active = act;
+            category = c;
+            question = q;
+            answer = a;
+            value = v;
+            active = act;
         }
     }
 }
