@@ -4,7 +4,7 @@
 ## Overview
 (tba)
 ## Development Setup/Execution
-To create the bot as a .jar file, utilize `mvn package` to create both initial .jar file and .jar file with dependencies. To run the .jar file, create an .env file with `DISCORD_TOKEN=<discord_token>` as the first line and `CHANNEL_NAME=<output_channel_name>` as the second line. To run the .jar file, use `java -jar target/dbot-1.0.0-jar-with-dependencies.jar` and the bot will start, which cretes a redis server when activated.
+To launch the bot, firstly you will need to add your discord token to AWS secretes manager. Then you must set up your AWS ec2 instance and allow access to secretes managr (located in the second dropdown under Advanced Details). Then paste the entire userdata.sh file into the user data box (located at the very bottom of the Advanced Details section). 
 ## Production Setup/Execution
 (tba)
 ## CI/CD Setup
