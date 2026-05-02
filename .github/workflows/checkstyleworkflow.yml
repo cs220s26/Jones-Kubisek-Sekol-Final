@@ -12,6 +12,6 @@ jobs:
 
     steps:
       - run: mvn checkstyle:check
-
+        working-directory: ./Jones-Kubisek-Sekol-Final
       - name: Checkout
         uses: actions/checkout@v6.0.2
