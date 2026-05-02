@@ -1,0 +1,17 @@
+name: CI Checkstyle
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  CheckstyleJob:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: mvn checkstyle:check
+
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
