@@ -1,5 +1,7 @@
 # DevOps Final Project
 ### Joshua Jones, Lilian Kubisek, Nora Sekol
+![Testing](https://github.com/cs220s26/Jones-Kubisek-Sekol-Final/actions/workflows/checkstyleworkflow.yml/badge.svg)
+![Testing](https://github.com/cs220s26/Jones-Kubisek-Sekol-Final/actions/workflows/testsjunit.yml/badge.svg)
 
 ## Overview
 Jeopardy Bot is a discord-based application which mimics a single round of the TV show Jeopardy, where players answer trivia facts in the form of a question (the 'facts' will be referred to as the question now on). The game consists of 4 categories, each with 4 questions that correspond to various price point values. Players take turns selecting questions to answer, and depending on their answer, the points get added or subtracted to their overall score. After all questions are answered (or when a player decides to terminate the game early), the game ends, and each player is scored according to how many points they have.
