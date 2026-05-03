@@ -9,13 +9,22 @@ Jeopardy Bot is a discord-based application which mimics a single round of the T
 Previously we have run this project from IntelliJ by clicking the run button--the goal of this iteration of the project is to execute it in new, more efficient and more continuous ways.
 
 ## Development Setup/Execution
-<note: this section should be about how to run it LOCALLY>  
-someone fill in
+To run the bot locally, one must do the following:
+1. Launch AWS. On the Learner Lab launch page, click on `AWS Details` and copy the information displayed upon clicking "Show" beside "AWS CLI". Open a new terminal window and paste this into the file `~/.aws/credentials`. You must repeat this action every time you launch AWS.
+2. Ensure that Secrets Manager is properly set up--if you are not currently storing your Discord token as a Secret, then go to Secrets Manager on AWS and click "Store New Secret", then "Other type of Secret" and set the key as `DISCORD_TOKEN` and the associated value as your token. Name the Secret `220_Discord_Token` and continue selecting `Next` until it allows you to `Store`.
+3. Clone the repository and cd into it with:
+```bash
+git clone https://github.com/cs220s26/Jones-Kubisek-Sekol-Final.git
+cd Jones-Kubisek-Sekol-Final
+```
+4. Make sure redis is running with `brew services start redis` or alternatively `brew services restart redis` is a redis instance is already active.
+5. Build the project through `mvn clean package`.
+6. After compiling, run the .jar file: `java -jar target/dbot-1.0.0-jar-with-dependencies.jar` The bot now runs locally!
 
 ## Production Setup/Execution
 To run the bot on an EC2 instance, one must do the following:
-1. Launch AWS. On the Learner Lab launch page, click on `AWS Details` and copy the information displayed upon clicking "Show" beside "AWS CLI". Open a new terminal window and paste this into the file `~/.aws/credentials`. You must repeat this action every time you launch AWS.
-2. Ensure that Secrets Manager is properly set up--if you are not currently storing your Discord token as a Secret, then go to Secrets Manager on AWS and click "Store New Secret", then "Other type of Secret" and set the key as `DISCORD_TOKEN` and the associated value as your token. Name the Secret `220_Discord_Token` and continue selecting `Next` until it allows you to `Store`.
+1. Repeat step 1 from Development setup.
+2. Repeat step 2 from Development setup.
 3. Go to the EC2 page of AWS and click the "Launch Instance" button.
 4. Name the instance whatever you'd like, select the `vockey` under "Key pair (login)" (assuming that your `labsuser.pem` has been properly configured), and check `SSH` and `HTTP` under "Network Settings". Under "Advanced Details", select the premade `LabInstanceProfile` from "IAM instance profile" copy and paste the contents of the `userdata.sh` file. Launch the instance.
 5. It will take a few moments to load, but congrats! You are now running the bot on an EC2 Instance.
