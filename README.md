@@ -9,7 +9,8 @@ Jeopardy Bot is a discord-based application which mimics a single round of the T
 Previously we have run this project from IntelliJ by clicking the run button--the goal of this iteration of the project is to execute it in new, more efficient and more continuous ways.
 
 ## Development Setup/Execution
-<note: this section should be about how to run it LOCALLY>
+<note: this section should be about how to run it LOCALLY>  
+someone fill in
 
 ## Production Setup/Execution
 To run the bot on an EC2 instance, one must do the following:
@@ -30,6 +31,7 @@ The first line of each file is `name: <name of workflow>`. The next, lines 3-7 (
 The next section of the file is `jobs:`; both .yml files' jobs are named based on their corresponding purpose and run on `ubuntu_latest`. To designate the commands executed in this workflow, we have `steps:` at the same indentation level as `runs-on:`, with the subsequent steps indented once from there: the first step must be running the latest version of `Checkout`, which fetches the most recent commit so that the workflow can access it. From there, the two workflows diverge: `checkstyleworkflow.yml` contains the line `- run: mvn checkstyle:check` to execute that line of code and run checkstyle, whereas `junit.yml` contains an additional section for execution: before running `mvn test` (a command that executes the bot's JUnit files), it first ensures that the JDK is at version 21, as this is what is specified in our `pom.xml` file and is thus compatible.
 
 ### Setting up CD:
+josh fill in
 
 ## CI/CD Execution
 Continuous Integration can be executed in two different ways:
@@ -37,13 +39,14 @@ Continuous Integration can be executed in two different ways:
 2. Go to the `Actions` tab of the repo on Github, selecting the workflow you wish to execute, and clicking the `Run workflow` button on the workflow page.
 
 Continuous Deployment: 
-1. 
+1. josh fill in
 
 ## Technologies Used
-- Discord
-- git
-- AWS Academy Learner Lab
-- Redis
+- Discord: https://discord.com/
+- git: https://git-scm.com/
+- Github: https://github.com/
+- AWS Academy Learner Lab: https://aws.amazon.com/training/awsacademy/
+- Redis: https://redis.io/
 
 ## Background
-(tba)
+- [Github Actions in Action (Chapter 2)](https://learning.oreilly.com/library/view/github-actions-in/9781633437302/OEBPS/Text/02.html): for help with setting up workflows for CI
