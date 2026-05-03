@@ -10,7 +10,7 @@ public class JeopardyCSVLoader {
     static List<Category> categories = new ArrayList<>();
 
     public JeopardyCSVLoader() {
-        String csvPath = "Jeopardy Questions.csv";
+        String csvPath = "JeopardyQuestions.csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvPath))) {
             String line;
