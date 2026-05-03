@@ -1,0 +1,19 @@
+name: Redeploy on AWS
+
+on:
+  workflow_dispatch: 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ssh-pipeline
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST_DOMAIN }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /home/ec2-user/Jones-Kubisek-Sekol-Final
+            ./redeploy.sh
+
