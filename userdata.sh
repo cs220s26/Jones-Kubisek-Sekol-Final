@@ -6,6 +6,7 @@ cd /home/ec2-user
 git clone https://github.com/cs220s26/Jones-Kubisek-Sekol-Final.git
 cd /home/ec2-user/Jones-Kubisek-Sekol-Final
 mvn package
+chmod +x redeploy.sh
 
 systemctl start redis6
 systemctl enable redis6 
