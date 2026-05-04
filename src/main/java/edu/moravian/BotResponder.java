@@ -2,7 +2,6 @@ package edu.moravian;
 import java.util.ArrayList;
 import java.util.List;
 import static edu.moravian.BotResponses.players;
-import static edu.moravian.BotResponses.status;
 
 public class BotResponder {
     static Board board;
@@ -43,10 +42,8 @@ public class BotResponder {
             return respondHelp();
         }else if(message.contains(" for ")) {
             return respondPickQuestion(message, player);
-        }else if(message.toLowerCase().startsWith("what is") || message.toLowerCase().startsWith("when is") || message.toLowerCase().startsWith("who is") || message.toLowerCase().startsWith("where is") || message.toLowerCase().startsWith("what are") || message.toLowerCase().startsWith("when are") || message.toLowerCase().startsWith("who are") || message.toLowerCase().startsWith("where are")) {
+        }else if(message.toLowerCase().startsWith("what is") || message.toLowerCase().startsWith("when is") || message.toLowerCase().startsWith("who is") || message.toLowerCase().startsWith("where is") || message.toLowerCase().startsWith("what are") || message.toLowerCase().startsWith("when are") || message.toLowerCase().startsWith("who are") || message.toLowerCase().startsWith("where are")){
             return respondAnswer(message, player);
-        }else if(message.contains("j.status")){
-            return status(players);
         }else{
             return "";
         }
