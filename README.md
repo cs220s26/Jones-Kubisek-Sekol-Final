@@ -23,11 +23,10 @@ cd Jones-Kubisek-Sekol-Final
 
 ## Production Setup/Execution
 To run the bot on an EC2 instance, one must do the following:
-1. Repeat step 1 from Development setup.
-2. Repeat step 2 from Development setup.
-3. Go to the EC2 page of AWS and click the "Launch Instance" button.
-4. Name the instance whatever you'd like, select the `vockey` under "Key pair (login)" (assuming that your `labsuser.pem` has been properly configured), and check `SSH` and `HTTP` under "Network Settings". Under "Advanced Details", select the premade `LabInstanceProfile` from "IAM instance profile" copy and paste the contents of the `userdata.sh` file. Launch the instance.
-5. It will take a few moments to load, but congrats! You are now running the bot on an EC2 Instance.
+1. Repeat step 2 from Development setup.
+2. Go to the EC2 page of AWS and click the "Launch Instance" button.
+3. Name the instance whatever you'd like, select the `vockey` under "Key pair (login)" (assuming that your `labsuser.pem` has been properly configured), and check `SSH` and `HTTP` under "Network Settings". Under "Advanced Details", select the premade `LabInstanceProfile` from "IAM instance profile". Copy and paste the contents of the `userdata.sh` file into the user data section located at the very bottom of "Advanced Details". Launch the instance.
+4. It will take a few moments to load, but congrats! You are now running the bot on an EC2 Instance.
 
 ## CI/CD Setup
 ### Setting up CI:
@@ -40,7 +39,10 @@ The first line of each file is `name: <name of workflow>`. The next, lines 3-7 (
 The next section of the file is `jobs:`; both .yml files' jobs are named based on their corresponding purpose and run on `ubuntu_latest`. To designate the commands executed in this workflow, we have `steps:` at the same indentation level as `runs-on:`, with the subsequent steps indented once from there: the first step must be running the latest version of `Checkout`, which fetches the most recent commit so that the workflow can access it. From there, the two workflows diverge: `checkstyleworkflow.yml` contains the line `- run: mvn checkstyle:check` to execute that line of code and run checkstyle, whereas `junit.yml` contains an additional section for execution: before running `mvn test` (a command that executes the bot's JUnit files), it first ensures that the JDK is at version 21, as this is what is specified in our `pom.xml` file and is thus compatible.
 
 ### Setting up CD:
-josh fill in
+To set up the Continuous Deployment of this project, you must complete the following: 
+1. Go to the 'Settings' tab in the GitHub repository, select the 'Secretes and variables' drop down menu on the left side, select 'Actions', then either select 'New repository secret', or if you already have the secretes made, click on the edit icons beside their names. 
+2. Add your SSH key as the secret "SSH_KEY". The key can be found by going to the learner lab launch page, selecting "AWS Details", click "Show" beside "SSH key", then copy everything it shows. 
+3. Add your server's IP address as the secret "HOST_DOMAIN". The IP can be located once the istance is launched, by going to the intances tab, selecting your instnce, then selectin the copy button by the public IPv4 address. 
 
 ## CI/CD Execution
 Continuous Integration can be executed in two different ways:
@@ -48,7 +50,8 @@ Continuous Integration can be executed in two different ways:
 2. Go to the `Actions` tab of the repo on Github, selecting the workflow you wish to execute, and clicking the `Run workflow` button on the workflow page.
 
 Continuous Deployment: 
-1. josh fill in
+1. To redeploy the bot, go to the 'Actions' tab on GitHub, select 'Redeploy on AWS', select the 'Run Workflow' drop down, then select the 'Run Workflows' button. 
+2. Wait for GitHub to finish running the deployment, then it will tell you if it was successfully. If it was not, read the errors to learn why. 
 
 ## Technologies Used
 - Discord: https://discord.com/
