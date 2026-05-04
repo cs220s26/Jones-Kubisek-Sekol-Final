@@ -39,8 +39,8 @@ The first line of each file is `name: <name of workflow>`. The next, lines 3-7 (
 The next section of the file is `jobs:`; both .yml files' jobs are named based on their corresponding purpose and run on `ubuntu_latest`. To designate the commands executed in this workflow, we have `steps:` at the same indentation level as `runs-on:`, with the subsequent steps indented once from there: the first step must be running the latest version of `Checkout`, which fetches the most recent commit so that the workflow can access it. From there, the two workflows diverge: `checkstyleworkflow.yml` contains the line `- run: mvn checkstyle:check` to execute that line of code and run checkstyle, whereas `junit.yml` contains an additional section for execution: before running `mvn test` (a command that executes the bot's JUnit files), it first ensures that the JDK is at version 21, as this is what is specified in our `pom.xml` file and is thus compatible.
 
 ### Setting up CD:
-To set up the Continuous Deployment of this project, you must complete the following: 
-1. Go to the 'Settings' tab in the GitHub repository, select the 'Secretes and variables' drop down menu on the left side, select 'Actions', then either select 'New repository secret', or if you already have the secretes made, click on the edit icons beside their names. 
+To set up the Continuous Deployment of this project, you must have your EC2 instance running, and complete the following: 
+1. Go to the `Settings` tab in the GitHub repository, select the 'Secretes and variables' drop down menu on the left side, select `Actions`, then either select `New repository secret`, or if you already have the secretes made, click on the edit icons beside their names. 
 2. Add your SSH key as the secret "SSH_KEY". The key can be found by going to the learner lab launch page, selecting "AWS Details", click "Show" beside "SSH key", then copy everything it shows. 
 3. Add your server's IP address as the secret "HOST_DOMAIN". The IP can be located once the istance is launched, by going to the intances tab, selecting your instnce, then selectin the copy button by the public IPv4 address. 
 
@@ -50,7 +50,7 @@ Continuous Integration can be executed in two different ways:
 2. Go to the `Actions` tab of the repo on Github, selecting the workflow you wish to execute, and clicking the `Run workflow` button on the workflow page.
 
 Continuous Deployment: 
-1. To redeploy the bot, go to the 'Actions' tab on GitHub, select 'Redeploy on AWS', select the 'Run Workflow' drop down, then select the 'Run Workflows' button. 
+1. To redeploy the bot, go to the `Actions` tab on GitHub, select `Redeploy on AWS`, select the `Run Workflow` drop down, then select the `Run Workflows` button. 
 2. Wait for GitHub to finish running the deployment, then it will tell you if it was successfully. If it was not, read the errors to learn why. 
 
 ## Technologies Used
