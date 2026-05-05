@@ -1,12 +1,13 @@
 # DevOps Final Project
 ### Joshua Jones, Lilian Kubisek, Nora Sekol
 ![Testing](https://github.com/cs220s26/Jones-Kubisek-Sekol-Final/actions/workflows/checkstyleworkflow.yml/badge.svg)
-![Testing](https://github.com/cs220s26/Jones-Kubisek-Sekol-Final/actions/workflows/testsjunit.yml/badge.svg)
+![Testing](https://github.com/cs220s26/Jones-Kubisek-Sekol-Final/actions/workflows/testsjunit.yml/badge.svg)  
+![Testing](https://github.com/cs220s26/Jones-Kubisek-Sekol-Final/actions/workflows/redeploy.yml/badge.svg)
 
 ## Overview
-Jeopardy Bot is a discord-based application which mimics a single round of the TV show Jeopardy, where players answer trivia facts in the form of a question (the 'facts' will be referred to as the question now on). The game consists of 4 categories, each with 4 questions that correspond to various price point values. Players take turns selecting questions to answer, and depending on their answer, the points get added or subtracted to their overall score. After all questions are answered (or when a player decides to terminate the game early), the game ends, and each player is scored according to how many points they have.
+Jeopardy Bot is a Discord-based application which mimics a single round of the TV show Jeopardy, where players answer trivia facts in the form of a question. The game consists of 4 categories, each with 4 questions that correspond to various price point values. Players take turns selecting questions to answer, and depending on their answer, the points get added or subtracted to their overall score. After all questions are answered (or when a player decides to terminate the game early), the game ends, and each player is scored according to how many points they have.
 
-Previously we have run this project from IntelliJ by clicking the run button--the goal of this iteration of the project is to execute it in new, more efficient and more continuous ways.
+Previously we have run this project from IntelliJ by clicking the run button--the goal of this iteration of the project is to execute it in new, more efficient and more continuous ways, such as on an AWS EC2 instance.
 
 ## Development Setup/Execution
 To run the bot locally, one must do the following:
@@ -17,13 +18,13 @@ To run the bot locally, one must do the following:
 git clone https://github.com/cs220s26/Jones-Kubisek-Sekol-Final.git
 cd Jones-Kubisek-Sekol-Final
 ```
-4. Make sure redis is running with `brew services start redis` or alternatively `brew services restart redis` is a redis instance is already active.
-5. Build the project through `mvn clean package`.
+4. Make sure Redis is running with `brew services start redis` or, if Redis is already active, `brew services restart redis`.
+5. Build the project with `mvn clean package`.
 6. After compiling, run the .jar file: `java -jar target/dbot-1.0.0-jar-with-dependencies.jar` The bot now runs locally!
 
 ## Production Setup/Execution
 To run the bot on an EC2 instance, one must do the following:
-1. Repeat step 2 from Development setup.
+1. If Discord token is not stored as a Secrets Manager secret, repeat step 2 from `Development Setup/Execution`.
 2. Go to the EC2 page of AWS and click the "Launch Instance" button.
 3. Name the instance whatever you'd like, select the `vockey` under "Key pair (login)" (assuming that your `labsuser.pem` has been properly configured), and check `SSH` and `HTTP` under "Network Settings". Under "Advanced Details", select the premade `LabInstanceProfile` from "IAM instance profile". Copy and paste the contents of the `userdata.sh` file into the user data section located at the very bottom of "Advanced Details". Launch the instance.
 4. It will take a few moments to load, but congrats! You are now running the bot on an EC2 Instance.
@@ -40,18 +41,18 @@ The next section of the file is `jobs:`; both .yml files' jobs are named based o
 
 ### Setting up CD:
 To set up the Continuous Deployment of this project, you must have your EC2 instance running, and complete the following: 
-1. Go to the `Settings` tab in the GitHub repository, select the 'Secretes and variables' drop down menu on the left side, select `Actions`, then either select `New repository secret`, or if you already have the secretes made, click on the edit icons beside their names. 
-2. Add your SSH key as the secret "SSH_KEY". The key can be found by going to the learner lab launch page, selecting "AWS Details", click "Show" beside "SSH key", then copy everything it shows. 
-3. Add your server's IP address as the secret "HOST_DOMAIN". The IP can be located once the istance is launched, by going to the intances tab, selecting your instnce, then selectin the copy button by the public IPv4 address. 
+1. Go to the `Settings` tab in the GitHub repository, select the 'Secrets and variables' drop down menu on the left side, select `Actions`, then either select `New repository secret`, or if you already have the secrets made, click on the edit icons beside their names.
+2. Add your SSH key as the secret "SSH_KEY". The key can be found by going to the Learner Lab launch page, selecting "AWS Details", clicking "Show" beside "SSH key", then copying everything it shows.
+3. Add your server's IP address as the secret "HOST_DOMAIN". The IP can be located once the instance is launched, by going to the instances tab, selecting your instance, then selecting the copy button by the public IPv4 address.
 
 ## CI/CD Execution
 Continuous Integration can be executed in two different ways:
 1. `push` to the repo on the `main` branch (automatically executes both workflows). Beside the commit message on Github there will either be a green checkmark or a red x, displaying the rate of succcess.
 2. Go to the `Actions` tab of the repo on Github, selecting the workflow you wish to execute, and clicking the `Run workflow` button on the workflow page.
 
-Continuous Deployment: 
-1. To redeploy the bot, go to the `Actions` tab on GitHub, select `Redeploy on AWS`, select the `Run Workflow` drop down, then select the `Run Workflows` button. 
-2. Wait for GitHub to finish running the deployment, then it will tell you if it was successfully. If it was not, read the errors to learn why. 
+Continuous Deployment can be executed in this way: 
+1. To redeploy the bot (assuming that an AWS EC2 instance is running), go to the `Actions` tab on GitHub, select `Redeploy on AWS`, select the `Run Workflow` drop down, then select the `Run Workflows` button. 
+2. Wait for GitHub to finish running the deployment, then it will tell you if it was successful. If it was not, read the errors to learn why.
 
 ## Technologies Used
 - Discord: https://discord.com/
@@ -62,3 +63,4 @@ Continuous Deployment:
 
 ## Background
 - [Github Actions in Action (Chapter 2)](https://learning.oreilly.com/library/view/github-actions-in/9781633437302/OEBPS/Text/02.html): for help with setting up workflows for CI
+- [Apache Maven](https://maven.apache.org/plugins/maven-assembly-plugin/): for the Maven assembly plugin, which creates a .jar file with dependencies.
