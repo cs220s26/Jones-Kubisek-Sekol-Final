@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REDIS="redis-cli"
+REDIS="redis6-cli"
 
 # ---- STATE CONTROL ----
 set_state() {

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REDIS_CLI="redis-cli"
+REDIS_CLI="redis6-cli"
 
 # helper function
 add_question() {

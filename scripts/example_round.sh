@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REDIS="redis-cli"
+REDIS="redis6-cli"
 
 $REDIS <<EOF
 HSET jeopardy:state state IN_PROGRESS
