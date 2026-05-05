@@ -40,8 +40,6 @@ public class BotResponder {
             return respondQuit(player);
         }else if(message.equalsIgnoreCase("j.help")){
             return respondHelp();
-        }else if(message.equalsIgnoreCase("j.status")){
-            return BotResponses.status(endPlayers);
         }else if(message.contains(" for ")) {
             return respondPickQuestion(message, player);
         }else if(message.toLowerCase().startsWith("what is") || message.toLowerCase().startsWith("when is") || message.toLowerCase().startsWith("who is") || message.toLowerCase().startsWith("where is") || message.toLowerCase().startsWith("what are") || message.toLowerCase().startsWith("when are") || message.toLowerCase().startsWith("who are") || message.toLowerCase().startsWith("where are")){
