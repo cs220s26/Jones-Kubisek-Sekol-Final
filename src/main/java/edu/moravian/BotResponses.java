@@ -53,10 +53,10 @@ public class BotResponses {
 
     public static String correctAnswer(String name, int value) {
         String playerStats = "\n\n";
-        for (Player p : players) {
+        for  (Player p : players) {
             playerStats += p.toString() + "\n";
         }
-        return name + ", you are correct! " + value + " points have been added to your score!\n\n Anyone may now pick a new question\n\n" + board.toString() + playerStats;
+        return name + ", you are correct! " + value + " points have been added to your score!\n\n Anyone may now pick a new question\n\n" + board.toString() + playerStats ;
     }
 
     public static String incorrectAnswer(String name, int value) {
@@ -70,9 +70,9 @@ public class BotResponses {
     public static String endGame(List<Player> players) {
         List<Player> ranked = BotResponder.getRankedPlayers(players);
         StringBuilder sb = new StringBuilder();
-        if (board.allCategoriesComplete(board.chosenCategories)) {
+        if(board.allCategoriesComplete(board.chosenCategories)){
             sb.append("All of the questions have been answered and the game is over! Here are the scores:\n\n");
-        } else {
+        }else{
             sb.append("You have ended the game early! Here are the scores:\n\n");
         }
         int rank = 1;
@@ -122,5 +122,16 @@ public class BotResponses {
     public static String canNotStartGameInProgress(String name) {
         return "Sorry " + name + ", the game has already started, you can not start a new one!";
     }
-}
 
+    public static String status(List<Player> players){
+        List<Player> ranked = BotResponder.getRankedPlayers(players);
+        StringBuilder sb = new StringBuilder();
+        sb.append("Current status of game:\n\n");
+        int rank = 1;
+        for (Player p : ranked) {
+            sb.append(rank).append(". ").append(p.getName()).append(" — ").append(p.getScore()).append(" points\n");
+            rank++;
+        }
+        return sb.toString();
+    }
+}
