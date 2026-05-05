@@ -122,4 +122,16 @@ public class BotResponses {
     public static String canNotStartGameInProgress(String name) {
         return "Sorry " + name + ", the game has already started, you can not start a new one!";
     }
+
+    public static String status(List<Player> players){
+        List<Player> ranked = BotResponder.getRankedPlayers(players);
+        StringBuilder sb = new StringBuilder();
+        sb.append("Current status of game:\n\n");
+        int rank = 1;
+        for (Player p : ranked) {
+            sb.append(rank).append(". ").append(p.getName()).append(" — ").append(p.getScore()).append(" points\n");
+            rank++;
+        }
+        return sb.toString();
+    }
 }
